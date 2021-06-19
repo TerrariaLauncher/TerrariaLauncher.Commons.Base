@@ -20,16 +20,5 @@ namespace TerrariaLauncher.Commons.Database
         Task CommitAsync(CancellationToken cancellationToken = default);
         void Rollback();
         Task RollbackAsync(CancellationToken cancellationToken = default);
-
-        T RunQueryHandler<T>(IQuerySingleHandler<T> queryHandler);
-        Task<T> RunQueryHandler<T>(IQuerySingleHandlerAsync<T> queryHandler, CancellationToken cancellationToken = default);
-        IEnumerable<T> RunQueryHandler<T>(IQueryHandler<T> queryHandler);
-        Task<IEnumerable<T>> RunQueryHandler<T>(IQueryHandlerAsync<T> queryHandler, CancellationToken cancellationToken = default);
-        IAsyncEnumerable<T> RunQueryHandler<T>(IQueryHandlerAsyncEnumerable<T> queryHandler, CancellationToken cancellationToken = default);
-
-        void RunCommandHandler(ICommandHandler commandHandler);
-        T RunCommandHandler<T>(ICommandHandler<T> commandHandler);
-        Task RunCommandHandler(ICommandHandlerAsync commandHandler, CancellationToken cancellationToken = default);
-        Task<T> RunCommandHandler<T>(ICommandHandlerAsync<T> commandHandler, CancellationToken cancellationToken = default);
     }
 }
