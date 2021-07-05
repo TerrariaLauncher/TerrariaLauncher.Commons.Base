@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TerrariaLauncher.Commons.AsyncUtilities
+namespace TerrariaLauncher.Commons.Extensions
 {
     public interface IErrorHandler
     {

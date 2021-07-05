@@ -17,5 +17,6 @@ namespace TerrariaLauncher.Commons.DomainObjects
         public string Version { get; set; }
         public string Platform { get; set; }
         public string Realm { get; set; }
+        public int MaxSlots { get; set; }
     }
 }
