@@ -8,20 +8,26 @@ namespace TerrariaLauncher.Commons.Consul.Extensions
 {
     public static class ConsulServiceCollectionExtensions
     {
-        public static IConsulServiceBuilder AddConsulService(this IServiceCollection serviceCollection, Action<ConsulServiceConfiguration> configure)
+        public static IConsulServiceBuilder AddConsulService(this IServiceCollection serviceCollection, Action<ConsulHostConfiguration> configureHost)
         {
-            var configs = new ConsulServiceConfiguration()
+            var defaultConfig = new ConsulHostConfiguration()
             {
                 UseTls = false,
                 Host = "localhost",
                 Port = 8500
             };
-            configure(configs);
+            configureHost(defaultConfig);
+
+            return AddConsulService(serviceCollection, configureHost);
+        }
+
+        public static IConsulServiceBuilder AddConsulService(this IServiceCollection serviceCollection, ConsulHostConfiguration config)
+        {           
 
             serviceCollection.AddHttpClient("Consul", httpClient =>
             {
-                var schema = configs.UseTls ? "https" : "http";
-                httpClient.BaseAddress = new Uri($"{schema}://{configs.Host}:{configs.Port}/");
+                var schema = config.UseTls ? "https" : "http";
+                httpClient.BaseAddress = new Uri($"{schema}://{config.Host}:{config.Port}/v1/");
             });
             serviceCollection.AddSingleton<IConsulQueryDispatcher, ConsulQueryDispatcher>();
             serviceCollection.AddSingleton<IConsulCommandDispatcher, ConsulCommandDispatcher>();

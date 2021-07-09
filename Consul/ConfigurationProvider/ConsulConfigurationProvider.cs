@@ -11,22 +11,22 @@ using TerrariaLauncher.Commons.Consul.API.Commons;
 using TerrariaLauncher.Commons.Consul.API.EndPoints.KeyValue.Queries;
 using TerrariaLauncher.Commons.Consul.API.EndPoints.KeyValue.Queries.Handlers;
 
-namespace TerrariaLauncher.Commons.Consul.Configurations
+namespace TerrariaLauncher.Commons.Consul.ConfigurationProvider
 {
-    public class ConsulConfigurationProvider : ConfigurationProvider
+    public class ConsulConfigurationProvider : Microsoft.Extensions.Configuration.ConfigurationProvider
     {
         HttpClient httpClient;
         ReadKeyQueryHandler readKeyQueryHandler;
         string key;
 
-        public ConsulConfigurationProvider(ConsulServiceConfiguration configs, string key)
+        public ConsulConfigurationProvider(ConsulHostConfiguration configs, string key)
         {
             this.httpClient = new HttpClient();
             this.readKeyQueryHandler = new ReadKeyQueryHandler();
             this.key = key;
 
             var schema = configs.UseTls ? "https" : "http";
-            this.httpClient.BaseAddress = new Uri($"{schema}://{configs.Host}:{configs.Port}/");
+            this.httpClient.BaseAddress = new Uri($"{schema}://{configs.Host}:{configs.Port}/v1/");
         }
 
         public override void Load()
@@ -51,7 +51,7 @@ namespace TerrariaLauncher.Commons.Consul.Configurations
 
                 foreach (var option in options)
                 {
-                    base.Set(option.Key, option.Value.GetString());
+                    base.Set(option.Key, option.Value.ToString());
                 }
             }
         }

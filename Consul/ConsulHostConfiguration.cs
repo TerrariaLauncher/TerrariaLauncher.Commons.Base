@@ -1,6 +1,6 @@
 ﻿namespace TerrariaLauncher.Commons.Consul
 {
-    public class ConsulServiceConfiguration
+    public class ConsulHostConfiguration
     {
         public bool UseTls { get; set; }
         public string Host { get; set; }

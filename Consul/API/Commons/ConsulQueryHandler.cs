@@ -27,7 +27,7 @@ namespace TerrariaLauncher.Commons.Consul.API.Commons
                     {
                         uriBuilder.AppendQuery("index", query.Options.Index.Value.ToString());
                     }
-                    else if (string.IsNullOrWhiteSpace(query.Options.Hash))
+                    else if (!string.IsNullOrWhiteSpace(query.Options.Hash))
                     {
                         uriBuilder.AppendQuery("hash", query.Options.Hash);
                     }
