@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TerrariaLauncher.Commons.Consul.API.Commons;
@@ -26,7 +24,6 @@ namespace TerrariaLauncher.Commons.Consul.API.EndPoints.KeyValue.Queries.Handler
                 uriBuider.AppendQuery("recurse", "true");
             }
             httpRequestMessage.RequestUri = uriBuider.Uri;
-
             return Task.CompletedTask;
         }
 

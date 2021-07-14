@@ -10,15 +10,15 @@ namespace TerrariaLauncher.Commons.Consul.Extensions
     {
         public static IConsulServiceBuilder AddConsulService(this IServiceCollection serviceCollection, Action<ConsulHostConfiguration> configureHost)
         {
-            var defaultConfig = new ConsulHostConfiguration()
+            var config = new ConsulHostConfiguration()
             {
                 UseTls = false,
                 Host = "localhost",
                 Port = 8500
             };
-            configureHost(defaultConfig);
+            configureHost(config);
 
-            return AddConsulService(serviceCollection, configureHost);
+            return AddConsulService(serviceCollection, config);
         }
 
         public static IConsulServiceBuilder AddConsulService(this IServiceCollection serviceCollection, ConsulHostConfiguration config)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using TerrariaLauncher.Commons.Consul.API.Commons;
@@ -20,6 +21,9 @@ namespace TerrariaLauncher.Commons.Consul.API.Agent.Services.Commands.Handlers
                 uriBuilder.AppendQuery("replace-existing-checks", "true");
             }
             httpRequestMessage.RequestUri = uriBuilder.Uri;
+
+            var json = JsonSerializer.Serialize(command.Registration);
+            httpRequestMessage.Content = new StringContent(json, new UTF8Encoding(), "application/json");
             return Task.CompletedTask;
         }
 
