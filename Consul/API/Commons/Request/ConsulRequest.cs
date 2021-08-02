@@ -10,6 +10,6 @@ namespace TerrariaLauncher.Commons.Consul.API.Commons
             this.Options = options;
         }
 
-        public ConsulRequestOptions Options { get; set; }
+        public ConsulRequestOptions Options { get; }
     }
 }

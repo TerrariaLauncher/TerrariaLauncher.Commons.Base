@@ -10,17 +10,14 @@ namespace TerrariaLauncher.Commons.Consul.API.EndPoints.Agent.Services.Queries
     {
         public GetServicesQuery() : base(new GetServicesQueryOptions()) { }
         public GetServicesQuery(GetServicesQueryOptions options) : base(options) { }
-
         public ConsulFilter Query { get; set; }
     }
 
     public class GetServicesQueryOptions : ConsulQueryOptions
     {
-        public override string Path => "agent/services";
-        public override HttpMethod HttpMethod => HttpMethod.Get;
-
-        public override AgentCachingMode SupportAgentCachingMode => AgentCachingMode.None;
-        public override bool SupportConsistency => false;
-        public override bool SupportBlocking => false;
+        public override BlockingOptions Blocking => new BlockingOptions(false);
+        public override ConsistencyOptions Consistency => new ConsistencyOptions(false);
+        public override AgentCachingOptions AgentCaching => new AgentCachingOptions(AgentCachingForm.None);
+        public override HttpOptions Http => new HttpOptions("agent/services", HttpMethod.Get);
     }
 }

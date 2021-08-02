@@ -13,15 +13,15 @@ namespace TerrariaLauncher.Commons.Consul.API.Commons
         {
             using (var httpRequestMessage = new HttpRequestMessage())
             {
-                httpRequestMessage.Method = command.Options.HttpMethod ?? HttpMethod.Get;
+                httpRequestMessage.Method = command.Options.Http.Method ?? HttpMethod.Get;
 
                 var uriBuilder = new UriBuilder(httpClient.BaseAddress);
-                uriBuilder.Path += command.Options.Path;
+                uriBuilder.Path += command.Options.Http.Path;
                 httpRequestMessage.RequestUri = uriBuilder.Uri;
 
-                if (!string.IsNullOrWhiteSpace(command.Options.Token))
+                if (!string.IsNullOrWhiteSpace(command.Options.Http.Token))
                 {
-                    httpRequestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", command.Options.Token);
+                    httpRequestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", command.Options.Http.Token);
                 }
 
                 await this.PrepareRequest(httpRequestMessage, command, cancellationToken).ConfigureAwait(false);

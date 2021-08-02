@@ -2,6 +2,6 @@
 {
     public interface IConsulCommand: IConsulRequest
     {
-        new ConsulCommandOptions Options { get; set; }
+        new ConsulCommandOptions Options { get; }
     }
 }

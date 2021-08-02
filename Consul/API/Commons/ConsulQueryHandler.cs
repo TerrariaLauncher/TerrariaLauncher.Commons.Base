@@ -16,58 +16,58 @@ namespace TerrariaLauncher.Commons.Consul.API.Commons
 
             using (var httpRequestMessage = new HttpRequestMessage())
             {
-                httpRequestMessage.Method = query.Options.HttpMethod ?? HttpMethod.Get;
+                httpRequestMessage.Method = query.Options.Http.Method ?? HttpMethod.Get;
 
                 var uriBuilder = new UriBuilder(httpClient.BaseAddress);
-                uriBuilder.Path += query.Options.Path;
+                uriBuilder.Path += query.Options.Http.Path;
 
-                if (query.Options.SupportBlocking)
+                if (query.Options.Blocking.Supported)
                 {
-                    if (query.Options.Index.HasValue)
+                    if (query.Options.Blocking.Index.HasValue)
                     {
-                        uriBuilder.AppendQuery("index", query.Options.Index.Value.ToString());
+                        uriBuilder.AppendQuery("index", query.Options.Blocking.Index.Value.ToString());
                     }
-                    else if (!string.IsNullOrWhiteSpace(query.Options.Hash))
+                    else if (!string.IsNullOrWhiteSpace(query.Options.Blocking.Hash))
                     {
-                        uriBuilder.AppendQuery("hash", query.Options.Hash);
+                        uriBuilder.AppendQuery("hash", query.Options.Blocking.Hash);
                     }
                 }
 
-                if (query.Options.SupportConsistency)
+                if (query.Options.Consistency.Supported)
                 {
-                    if (query.Options.ConsistencyMode != ConsistencyMode.Default)
+                    if (query.Options.Consistency.Mode != ConsistencyMode.Default)
                     {
                         uriBuilder.AppendQuery(ConsistencyMode.Consistent.ToString());
                     }
                 }
 
-                if (query.Options.SupportAgentCachingMode != AgentCachingMode.None && query.Options.CachingEnabled)
+                if (query.Options.AgentCaching.Form != AgentCachingForm.None && query.Options.AgentCaching.Enabled)
                 {
                     uriBuilder.AppendQuery("cached");
-                    if (query.Options.SupportAgentCachingMode == AgentCachingMode.Simple)
+                    if (query.Options.AgentCaching.Form == AgentCachingForm.Simple)
                     {
-                        if (query.Options.CacheControl.MaxAge.HasValue)
+                        if (query.Options.AgentCaching.CacheControl.MaxAge.HasValue)
                         {
-                            httpRequestMessage.Headers.CacheControl.MaxAge = query.Options.CacheControl.MaxAge.Value;
+                            httpRequestMessage.Headers.CacheControl.MaxAge = query.Options.AgentCaching.CacheControl.MaxAge.Value;
                         }
 
-                        if (query.Options.CacheControl.MustRevalidate)
+                        if (query.Options.AgentCaching.CacheControl.MustRevalidate)
                         {
                             httpRequestMessage.Headers.CacheControl.MustRevalidate = true;
                         }
 
-                        if (query.Options.CacheControl.StaleIfError.HasValue)
+                        if (query.Options.AgentCaching.CacheControl.StaleIfError.HasValue)
                         {
-                            httpRequestMessage.Headers.Add("Cache-Control", $"stale-if-error={Convert.ToInt32(query.Options.CacheControl.StaleIfError.Value.TotalSeconds)}");
+                            httpRequestMessage.Headers.Add("Cache-Control", $"stale-if-error={Convert.ToInt32(query.Options.AgentCaching.CacheControl.StaleIfError.Value.TotalSeconds)}");
                         }
                     }
                 }
 
                 httpRequestMessage.RequestUri = uriBuilder.Uri;
 
-                if (!string.IsNullOrWhiteSpace(query.Options.Token))
+                if (!string.IsNullOrWhiteSpace(query.Options.Http.Token))
                 {
-                    httpRequestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", query.Options.Token);
+                    httpRequestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", query.Options.Http.Token);
                 }
 
                 await this.PrepareRequest(httpRequestMessage, query, cancellationToken).ConfigureAwait(false);
@@ -76,7 +76,7 @@ namespace TerrariaLauncher.Commons.Consul.API.Commons
                 {
                     var result = await this.ProcessResponse(httpResponseMessage, query, cancellationToken).ConfigureAwait(false);
                     httpResponseMessage.EnsureSuccessStatusCode();
-                    if (query.Options.SupportBlocking)
+                    if (query.Options.Blocking.Supported)
                     {
                         result.Headers.BlockingQueryHeaders = new ConsulBlockingQueryResponseHeaders();
                         if (httpResponseMessage.Headers.TryGetValues("X-Consul-Index", out var values))
@@ -85,7 +85,7 @@ namespace TerrariaLauncher.Commons.Consul.API.Commons
                         }
                     }
 
-                    if (query.Options.CachingEnabled)
+                    if (query.Options.AgentCaching.Enabled)
                     {
                         result.Headers.AgentCachingHeaders = new ConsulAgentCachingResponseHeaders();
                         if (httpResponseMessage.Headers.TryGetValues("X-Cache", out var values))
@@ -102,7 +102,7 @@ namespace TerrariaLauncher.Commons.Consul.API.Commons
                         }
                     }
 
-                    if (query.Options.SupportConsistency)
+                    if (query.Options.Consistency.Supported)
                     {
                         result.Headers.ConsistencyHeaders = new ConsulConsistencyResponseHeaders();
                         if (httpResponseMessage.Headers.TryGetValues("X-Consul-LastContact", out var values))

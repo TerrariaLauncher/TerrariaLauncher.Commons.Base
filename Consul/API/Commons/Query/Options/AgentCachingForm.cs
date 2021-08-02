@@ -1,6 +1,6 @@
 ﻿namespace TerrariaLauncher.Commons.Consul.API.Commons
 {
-    public enum AgentCachingMode
+    public enum AgentCachingForm
     {
         None,
         Simple,

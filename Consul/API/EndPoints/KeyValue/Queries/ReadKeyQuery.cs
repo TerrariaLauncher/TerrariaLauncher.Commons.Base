@@ -22,10 +22,9 @@ namespace TerrariaLauncher.Commons.Consul.API.EndPoints.KeyValue.Queries
 
     public class ReadKeyQueryOptions : ConsulQueryOptions
     {
-        public override string Path => "kv/";
-        public override HttpMethod HttpMethod => HttpMethod.Get;
-        public override bool SupportBlocking => true;
-        public override bool SupportConsistency => true;
-        public override AgentCachingMode SupportAgentCachingMode => AgentCachingMode.None;
+        public override BlockingOptions Blocking => new BlockingOptions(true);
+        public override ConsistencyOptions Consistency => new ConsistencyOptions(true);
+        public override AgentCachingOptions AgentCaching => new AgentCachingOptions(AgentCachingForm.None);
+        public override HttpOptions Http => new HttpOptions("kv/", HttpMethod.Get);
     }
 }

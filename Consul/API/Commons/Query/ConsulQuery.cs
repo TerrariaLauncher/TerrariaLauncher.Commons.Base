@@ -9,10 +9,6 @@ namespace TerrariaLauncher.Commons.Consul.API.Commons
         new public ConsulQueryOptions Options
         {
             get => base.Options as ConsulQueryOptions;
-            set
-            {
-                base.Options = value;
-            }
         }
     }
 }

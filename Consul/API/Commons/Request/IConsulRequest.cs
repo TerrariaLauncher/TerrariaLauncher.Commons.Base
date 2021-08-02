@@ -6,6 +6,6 @@ namespace TerrariaLauncher.Commons.Consul.API.Commons
 {
     public interface IConsulRequest
     {
-        ConsulRequestOptions Options { get; set; }
+        ConsulRequestOptions Options { get; }
     }
 }

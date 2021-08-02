@@ -18,7 +18,6 @@ namespace TerrariaLauncher.Commons.Consul.API.Agent.Services.Commands
 
     public class RegisterServiceCommandOptions : ConsulCommandOptions
     {
-        public override string Path => "agent/service/register";
-        public override HttpMethod HttpMethod => HttpMethod.Put;
+        public override HttpOptions Http => new HttpOptions("agent/service/register", HttpMethod.Put);
     }
 }
