@@ -75,28 +75,31 @@ namespace TerrariaLauncher.Commons.Consul.API.Commons
                 using (var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, cancellationToken).ConfigureAwait(false))
                 {
                     var result = await this.ProcessResponse(httpResponseMessage, query, cancellationToken).ConfigureAwait(false);
-                    httpResponseMessage.EnsureSuccessStatusCode();
+                    if (!query.Options.Http.BypassUnsuccessfulStatusCode)
+                    {
+                        httpResponseMessage.EnsureSuccessStatusCode();
+                    }
                     if (query.Options.Blocking.Supported)
                     {
-                        result.Headers.BlockingQueryHeaders = new ConsulBlockingQueryResponseHeaders();
+                        result.Meta.BlockingQueryHeaders = new ConsulBlockingQueryResponseHeaders();
                         if (httpResponseMessage.Headers.TryGetValues("X-Consul-Index", out var values))
                         {
-                            result.Headers.BlockingQueryHeaders.Index = Convert.ToInt32(values.First());
+                            result.Meta.BlockingQueryHeaders.Index = Convert.ToInt32(values.First());
                         }
                     }
 
                     if (query.Options.AgentCaching.Enabled)
                     {
-                        result.Headers.AgentCachingHeaders = new ConsulAgentCachingResponseHeaders();
+                        result.Meta.AgentCachingHeaders = new ConsulAgentCachingResponseHeaders();
                         if (httpResponseMessage.Headers.TryGetValues("X-Cache", out var values))
                         {
                             if (values.First().Equals("HIT", StringComparison.OrdinalIgnoreCase))
                             {
-                                result.Headers.AgentCachingHeaders.CacheHit = true;
+                                result.Meta.AgentCachingHeaders.CacheHit = true;
 
                                 if (httpResponseMessage.Headers.Age.HasValue)
                                 {
-                                    result.Headers.AgentCachingHeaders.Age = httpResponseMessage.Headers.Age.Value;
+                                    result.Meta.AgentCachingHeaders.Age = httpResponseMessage.Headers.Age.Value;
                                 }
                             }
                         }
@@ -104,15 +107,15 @@ namespace TerrariaLauncher.Commons.Consul.API.Commons
 
                     if (query.Options.Consistency.Supported)
                     {
-                        result.Headers.ConsistencyHeaders = new ConsulConsistencyResponseHeaders();
+                        result.Meta.ConsistencyHeaders = new ConsulConsistencyResponseHeaders();
                         if (httpResponseMessage.Headers.TryGetValues("X-Consul-LastContact", out var values))
                         {
-                            result.Headers.ConsistencyHeaders.LastContact = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(values.First()));
+                            result.Meta.ConsistencyHeaders.LastContact = new TimeSpan(0, 0, 0, 0, Convert.ToInt32(values.First()));
                         }
 
                         if (httpResponseMessage.Headers.TryGetValues("X-Consul-KnownLeader", out values))
                         {
-                            result.Headers.ConsistencyHeaders.KnownLeader = Convert.ToBoolean(values.First());
+                            result.Meta.ConsistencyHeaders.KnownLeader = Convert.ToBoolean(values.First());
                         }
                     }
 

@@ -4,13 +4,13 @@
     {
         protected ConsulQueryResult()
         {
-            (this as IConsulQueryResult).Headers = new ConsulQueryResultHeaders();
+            (this as IConsulQueryResult).Meta = new ConsulQueryResultMeta();
         }
 
-        new public ConsulQueryResultHeaders Headers
+        new public ConsulQueryResultMeta Meta
         {
-            get => (this as IConsulResult).Headers as ConsulQueryResultHeaders;
-            set => (this as IConsulResult).Headers = value;
+            get => (this as IConsulResult).Meta as ConsulQueryResultMeta;
+            set => (this as IConsulResult).Meta = value;
         }
     }
 }

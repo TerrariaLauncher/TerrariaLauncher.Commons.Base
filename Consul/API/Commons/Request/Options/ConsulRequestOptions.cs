@@ -14,6 +14,7 @@ namespace TerrariaLauncher.Commons.Consul.API.Commons
 
             public string Path { get; }
             public HttpMethod Method { get; }
+            public bool BypassUnsuccessfulStatusCode { get; set; }
             public string Token { get; set; }
         }
 

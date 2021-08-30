@@ -2,6 +2,6 @@
 {
     public interface IConsulQueryResult: IConsulResult
     {
-        new ConsulQueryResultHeaders Headers { get; set; }
+        new ConsulQueryResultMeta Meta { get; set; }
     }
 }

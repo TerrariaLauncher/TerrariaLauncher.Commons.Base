@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using TerrariaLauncher.Commons.Consul.API.Commons;
 using TerrariaLauncher.Commons.Consul.API.EndPoints.KeyValue.Queries;
-using TerrariaLauncher.Commons.Consul.API.EndPoints.KeyValue.Queries.Handlers;
 
 namespace TerrariaLauncher.Commons.Consul.ConfigurationProvider
 {
@@ -58,33 +57,38 @@ namespace TerrariaLauncher.Commons.Consul.ConfigurationProvider
 
         private static IDictionary<string, JsonElement> Flatten(string json)
         {
-            IEnumerable<(IImmutableList<string> path, JsonProperty property)> GetLeaves(IImmutableList<string> path, JsonProperty property)
-            {
-                if (path is null)
-                {
-                    path = ImmutableList.Create<string>(property.Name);
-                }
-                else
-                {
-                    path = path.Add(property.Name);
-                }
-
-                if (property.Value.ValueKind != JsonValueKind.Object)
-                {
-                    return new[] { (path: path, property) };
-                }
-                else
-                {
-                    return property.Value.EnumerateObject()
-                        .SelectMany(child => GetLeaves(path: path, child));
-                }
-            }
-
             using (var document = JsonDocument.Parse(json))
             {
-                return document.RootElement.EnumerateObject()
-                    .SelectMany(property => GetLeaves(null, property))
-                    .ToDictionary(item => ConfigurationPath.Combine(item.path), item => item.property.Value.Clone());
+                var leaves = new List<(IImmutableList<string> Path, JsonElement Element)>();
+
+                var candidates = new Stack<(IImmutableList<string> Path, JsonElement Element)>();
+                candidates.Push((ImmutableList.Create<string>(), document.RootElement));
+
+                while (candidates.Count > 0)
+                {
+                    var candidate = candidates.Pop();
+                    switch (candidate.Element.ValueKind)
+                    {
+                        case JsonValueKind.Object:
+                            foreach (var property in candidate.Element.EnumerateObject())
+                            {
+                                candidates.Push((candidate.Path.Add(property.Name), property.Value));
+                            }
+                            break;
+                        case JsonValueKind.Array:
+                            int index = 0;
+                            foreach (var element in candidate.Element.EnumerateArray())
+                            {
+                                candidates.Push((candidate.Path.Add(index.ToString()), element));
+                            }
+                            break;
+                        default:
+                            leaves.Add((candidate.Path, candidate.Element));
+                            break;
+                    }
+                }
+
+                return leaves.ToDictionary(item => ConfigurationPath.Combine(item.Path), item => item.Element.Clone());
             }
         }
     }

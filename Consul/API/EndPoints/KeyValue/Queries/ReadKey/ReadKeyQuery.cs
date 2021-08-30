@@ -8,10 +8,7 @@ namespace TerrariaLauncher.Commons.Consul.API.EndPoints.KeyValue.Queries
 {
     public class ReadKeyQuery : ConsulQuery
     {
-        public ReadKeyQuery() : base(new ReadKeyQueryOptions())
-        {
-
-        }
+        public ReadKeyQuery() : base(new ReadKeyQueryOptions()) { }
 
         public ReadKeyQuery(ReadKeyQueryOptions options) : base(options) { }
 

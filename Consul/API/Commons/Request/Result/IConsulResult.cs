@@ -5,6 +5,6 @@ namespace TerrariaLauncher.Commons.Consul.API.Commons
 {
     public interface IConsulResult
     {
-        ConsulResultHeaders Headers { get; set; }
+        ConsulResultMeta Meta { get; set; }
     }
 }

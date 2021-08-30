@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using TerrariaLauncher.Commons.Consul.API.Commons;
 using TerrariaLauncher.Commons.Extensions;
 
-namespace TerrariaLauncher.Commons.Consul.API.Agent.Services.Commands.Handlers
+namespace TerrariaLauncher.Commons.Consul.API.Agent.Services.Commands
 {
     public class RegisterServiceCommandHandler : ConsulCommandHandler<RegisterServiceCommand, RegisterServiceCommandResult>
     {

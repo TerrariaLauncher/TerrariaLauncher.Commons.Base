@@ -5,21 +5,6 @@ using System.Text;
 
 namespace TerrariaLauncher.Commons.Consul.API.Filter
 {
-    public enum ConsulOperator
-    {
-        Equal,
-        NotEqual,
-        In,
-        NotIn,
-        Matches,
-        NotMaches,
-        IsEmpty,
-        IsNotEmpty,
-        And,
-        Or,
-        Not
-    }
-
     public abstract class ConsulExpression
     {
         public abstract new string ToString();
@@ -53,60 +38,6 @@ namespace TerrariaLauncher.Commons.Consul.API.Filter
                 default:
                     throw new InvalidEnumArgumentException(nameof(operation));
             }
-        }
-    }
-
-    public class ConsulBinaryExpression : ConsulExpression
-    {
-        public ConsulOperator Operator { get; set; }
-        public ConsulExpression Left { get; set; }
-        public ConsulExpression Right { get; set; }
-
-        public override string ToString()
-        {
-            return $"{Left.ToString()} {OperatorAsString(Operator)} {Right.ToString()}";
-        }
-    }
-
-    public class ConsulUnaryExpression : ConsulExpression
-    {
-        public ConsulOperator Operator { get; set; }
-
-        public ConsulExpression Operand { get; set; }
-
-        public override string ToString()
-        {
-            return $"{Operand} {OperatorAsString(Operator)}";
-        }
-    }
-
-    public class ConsulSelector : ConsulExpression
-    {
-        public string Selector { get; set; }
-
-        public override string ToString()
-        {
-            return Selector;
-        }
-    }
-
-    public class ConsulBracket : ConsulExpression
-    {
-        public ConsulExpression Expression { get; set; }
-
-        public override string ToString()
-        {
-            return $"({Expression.ToString()})";
-        }
-    }
-
-    public class ConsulValue : ConsulExpression
-    {
-        public string Value { get; set; }
-
-        public override string ToString()
-        {
-            return Value;
         }
     }
 }

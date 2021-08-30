@@ -9,7 +9,7 @@ using TerrariaLauncher.Commons.Consul.API.Commons;
 using TerrariaLauncher.Commons.Consul.API.DTOs;
 using TerrariaLauncher.Commons.Extensions;
 
-namespace TerrariaLauncher.Commons.Consul.API.EndPoints.Agent.Services.Queries.Handlers
+namespace TerrariaLauncher.Commons.Consul.API.EndPoints.Agent.Services.Queries
 {
     public class GetServicesQueryHandler : ConsulQueryHandler<GetServicesQuery, GetServicesQueryResult>
     {
@@ -27,7 +27,7 @@ namespace TerrariaLauncher.Commons.Consul.API.EndPoints.Agent.Services.Queries.H
             return new GetServicesQueryResult()
             {
                 Services = await httpResponseMessage.Content.ReadFromJsonAsync<IDictionary<string, RegisteredService>>(cancellationToken: cancellationToken)
-            };            
+            };
         }
     }
 }

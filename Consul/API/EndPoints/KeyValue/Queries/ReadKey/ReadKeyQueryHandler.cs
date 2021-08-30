@@ -7,7 +7,7 @@ using TerrariaLauncher.Commons.Consul.API.Commons;
 using TerrariaLauncher.Commons.Consul.API.DTOs;
 using TerrariaLauncher.Commons.Extensions;
 
-namespace TerrariaLauncher.Commons.Consul.API.EndPoints.KeyValue.Queries.Handlers
+namespace TerrariaLauncher.Commons.Consul.API.EndPoints.KeyValue.Queries
 {
     public class ReadKeyQueryHandler : ConsulQueryHandler<ReadKeyQuery, ReadKeyQueryResult>
     {

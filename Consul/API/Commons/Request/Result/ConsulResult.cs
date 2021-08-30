@@ -2,6 +2,6 @@
 {
     public abstract class ConsulResult: IConsulResult
     {
-        public ConsulResultHeaders Headers { get; set; }
+        public ConsulResultMeta Meta { get; set; }
     }
 }
