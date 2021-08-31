@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TerrariaLauncher.Commons.Database.CQS.Commons
+namespace TerrariaLauncher.Commons.Database.CQS.Request
 {
     public abstract class Request : IRequest
     {

@@ -33,7 +33,7 @@ namespace TerrariaLauncher.Commons.MediatorService
                 }
             }
 
-            return new DefaultAddMediatorServiceResult(services);
+            return this;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using TerrariaLauncher.Commons.Database.CQS.Commons;
+using TerrariaLauncher.Commons.Database.CQS.Request;
 
 namespace TerrariaLauncher.Commons.Database.CQS.Query
 {
