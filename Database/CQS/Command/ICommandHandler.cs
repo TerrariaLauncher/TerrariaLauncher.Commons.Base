@@ -11,7 +11,6 @@ namespace TerrariaLauncher.Commons.Database.CQS.Command
         where TCommand : ICommand
         where TResult: IResult
     {
-        TResult Handle(TCommand command);
-        Task<TResult> HandleAsync(TCommand command, CancellationToken cancellationToken);
+        Task<TResult> HandleAsync(TCommand command, CancellationToken cancellationToken = default);
     }
 }

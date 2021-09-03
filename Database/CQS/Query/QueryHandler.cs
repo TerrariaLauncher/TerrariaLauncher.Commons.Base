@@ -17,25 +17,7 @@ namespace TerrariaLauncher.Commons.Database.CQS.Query
         {
             this.logger = logger;
         }
-
-        public TResult Handle(TQuery query)
-        {
-            TResult result = default;
-
-            try
-            {
-                result = this.Implementation(query);
-            }
-            catch (Exception ex)
-            {
-                this.logger.LogError(ex, ex.Message);
-                throw;
-            }
-
-            return result;
-        }
-
-        public async Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken)
+        public async Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken = default)
         {
             TResult result = default;
 
@@ -52,7 +34,6 @@ namespace TerrariaLauncher.Commons.Database.CQS.Query
             return result;
         }
 
-        protected abstract TResult Implementation(TQuery query);
-        protected abstract Task<TResult> ImplementationAsync(TQuery query, CancellationToken cancellationToken);
+        protected abstract Task<TResult> ImplementationAsync(TQuery query, CancellationToken cancellationToken = default);
     }
 }

@@ -11,7 +11,6 @@ namespace TerrariaLauncher.Commons.Database.CQS.Query
         where TQuery : IQuery
         where TResult : IResult
     {
-        TResult Handle(TQuery query);
-        Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken);
+        Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken = default);
     }
 }

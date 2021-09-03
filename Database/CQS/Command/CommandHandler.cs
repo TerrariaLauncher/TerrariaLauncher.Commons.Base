@@ -18,23 +18,7 @@ namespace TerrariaLauncher.Commons.Database.CQS.Command
             this.logger = logger;
         }
 
-        public TResult Handle(TCommand command)
-        {
-            TResult result = default;
-            try
-            {
-                result = this.Implementation(command);
-            }
-            catch (Exception ex)
-            {
-                this.logger.LogError(ex, ex.Message);
-                throw;
-            }
-
-            return result;
-        }
-
-        public async Task<TResult> HandleAsync(TCommand command, CancellationToken cancellationToken)
+        public async Task<TResult> HandleAsync(TCommand command, CancellationToken cancellationToken = default)
         {
             TResult result = default;
             try
@@ -50,7 +34,6 @@ namespace TerrariaLauncher.Commons.Database.CQS.Command
             return result;
         }
 
-        protected abstract TResult Implementation(TCommand command);
-        protected abstract Task<TResult> ImplementationAsync(TCommand command, CancellationToken cancellationToken);
+        protected abstract Task<TResult> ImplementationAsync(TCommand command, CancellationToken cancellationToken = default);
     }
 }
