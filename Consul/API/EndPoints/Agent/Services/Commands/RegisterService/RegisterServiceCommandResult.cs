@@ -1,4 +1,4 @@
-﻿using TerrariaLauncher.Commons.Consul.API.Commons;
+﻿using TerrariaLauncher.Commons.Consul.API.CQS.Command;
 
 namespace TerrariaLauncher.Commons.Consul.API.Agent.Services.Commands
 {

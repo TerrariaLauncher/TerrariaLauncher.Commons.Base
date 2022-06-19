@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using TerrariaLauncher.Commons.Consul.API.Commons;
+using TerrariaLauncher.Commons.Consul.API.CQS;
 using TerrariaLauncher.Commons.Consul.API.EndPoints.KeyValue.Queries;
 
 namespace TerrariaLauncher.Commons.Consul.ConfigurationProvider

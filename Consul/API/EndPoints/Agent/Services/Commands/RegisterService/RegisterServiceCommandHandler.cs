@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using TerrariaLauncher.Commons.Consul.API.Commons;
+using TerrariaLauncher.Commons.Consul.API.CQS.Command;
 using TerrariaLauncher.Commons.Extensions;
 
 namespace TerrariaLauncher.Commons.Consul.API.Agent.Services.Commands

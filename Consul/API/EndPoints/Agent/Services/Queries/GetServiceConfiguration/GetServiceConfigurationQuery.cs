@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-using TerrariaLauncher.Commons.Consul.API.Commons;
+using TerrariaLauncher.Commons.Consul.API.CQS.Query;
 using TerrariaLauncher.Commons.Consul.API.DTOs;
 
 namespace TerrariaLauncher.Commons.Consul.API.EndPoints.Agent.Services.Queries.GetServiceConfiguration

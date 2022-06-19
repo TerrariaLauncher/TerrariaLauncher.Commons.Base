@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using TerrariaLauncher.Commons.Consul.API.Commons;
+using TerrariaLauncher.Commons.Consul.API.CQS.Query;
 using TerrariaLauncher.Commons.Consul.API.DTOs;
 using TerrariaLauncher.Commons.Extensions;
 

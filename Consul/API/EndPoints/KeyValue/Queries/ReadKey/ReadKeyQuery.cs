@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-using TerrariaLauncher.Commons.Consul.API.Commons;
+using TerrariaLauncher.Commons.Consul.API.CQS.Query;
 
 namespace TerrariaLauncher.Commons.Consul.API.EndPoints.KeyValue.Queries
 {

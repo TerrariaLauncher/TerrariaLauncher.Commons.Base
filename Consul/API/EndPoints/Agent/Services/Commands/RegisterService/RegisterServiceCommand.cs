@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-using TerrariaLauncher.Commons.Consul.API.Commons;
+using TerrariaLauncher.Commons.Consul.API.CQS.Command;
 using TerrariaLauncher.Commons.Consul.API.DTOs;
 
 namespace TerrariaLauncher.Commons.Consul.API.Agent.Services.Commands
