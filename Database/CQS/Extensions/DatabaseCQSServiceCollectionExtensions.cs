@@ -7,13 +7,13 @@ using TerrariaLauncher.Commons.Database.CQS.Query;
 
 namespace TerrariaLauncher.Commons.Database.CQS.Extensions
 {
-    public static class CQSServiceCollectionExtensions
+    public static class DatabaseCQSServiceCollectionExtensions
     {
-        public static IAddDatabaseCQSResult AddDatabaseCQS(this IServiceCollection services)
+        public static IDatabaseCQSServiceBuilder AddDatabaseCQS(this IServiceCollection services)
         {
             services.TryAddSingleton<IQueryDispatcher, QueryDispatcher>();
             services.TryAddSingleton<ICommandDispatcher, CommandDispatcher>();
-            return new DefaultAddDatabaseCQSResult(services);
+            return new DefaultDatabaseCQSServiceBuilder(services);
         }
     }
 }

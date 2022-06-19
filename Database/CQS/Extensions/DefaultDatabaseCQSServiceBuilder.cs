@@ -7,15 +7,20 @@ using TerrariaLauncher.Commons.Database.CQS.Query;
 
 namespace TerrariaLauncher.Commons.Database.CQS.Extensions
 {
-    internal class DefaultAddDatabaseCQSResult : IAddDatabaseCQSResult
+    internal class DefaultDatabaseCQSServiceBuilder : IDatabaseCQSServiceBuilder
     {
         IServiceCollection services;
-        public DefaultAddDatabaseCQSResult(IServiceCollection services)
+        public DefaultDatabaseCQSServiceBuilder(IServiceCollection services)
         {
             this.services = services;
         }
 
-        public IAddDatabaseCQSResult AddHandlers(Assembly assembly)
+        /// <summary>
+        /// Command/Query handlers will be stored on other assemblies, not on this library.
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <returns></returns>
+        public IDatabaseCQSServiceBuilder AddHandlers(Assembly assembly)
         {
             foreach (var type in assembly.GetTypes())
             {
