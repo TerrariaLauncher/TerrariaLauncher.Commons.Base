@@ -21,7 +21,7 @@ namespace TerrariaLauncher.Commons.ManualMapping.Extensions
 
                 Type interfaceType;
                 interfaceType = type.GetInterface(typeof(IManualMappingHandler<,>).Name);
-                if (interfaceType is not null)
+                if (interfaceType != null)
                 {
                     this.services.AddSingleton(interfaceType, type);
                 }
